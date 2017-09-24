@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 class Login extends React.Component {
   render () {
-    return (<Button>Login</Button>)
+    return (<Button onClick={this.props.logIn}>Login</Button>)
   }
 }
 

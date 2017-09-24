@@ -4,24 +4,22 @@ import Login from './Login'
 import SignUp from './Sign-Up'
 import LogOut from './Log-Out'
 
+import { connect } from "react-redux";
+import { signUp, logOut, logIn } from "../../actions/auth";
+
 class LoginSignUpContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      loggedIn: false
-    }
-  }
 
   render () {
+    console.log(this.props)
     return (
       <div>
-        { !this.state.loggedIn ? <Login></Login> : null }
-        { !this.state.loggedIn ? <SignUp></SignUp> : null }
-        { this.state.loggedIn ? <LogOut></LogOut> : null }
+        { !this.props.loggedIn ? <Login logIn={this.props.logIn}></Login> : null }
+        { !this.props.loggedIn ? <SignUp signUp={this.props.signUp}></SignUp> : null }
+        { this.props.loggedIn ? <LogOut logOut={this.props.logOut}></LogOut> : null }
       </div>
     )
 
   }
 }
 
-export default LoginSignUpContainer;
+export default connect(state => state, {signUp, logOut, logIn}) (LoginSignUpContainer);
