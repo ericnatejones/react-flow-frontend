@@ -5,13 +5,17 @@ class SignUp extends React.Component {
   render () {
     return (
       <Panel>
-        <Form horizontal>
+        <Form onSubmit={this.props.handleSignup} horizontal>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={3}>
               Name
             </Col>
             <Col sm={9}>
-              <FormControl type="text" placeholder="Name" />
+              <FormControl onChange={this.props.handleChange}
+                           value={this.props.name}
+                           name="name"
+                           type="text"
+                           placeholder="Name" />
             </Col>
           </FormGroup>
 
@@ -20,7 +24,11 @@ class SignUp extends React.Component {
               User Name
             </Col>
             <Col sm={9}>
-              <FormControl type="text" placeholder="Username" />
+              <FormControl onChange={this.props.handleChange}
+                           value={this.props.username}
+                           name="username"
+                           type="text"
+                           placeholder="Username" />
             </Col>
           </FormGroup>
 
@@ -29,7 +37,11 @@ class SignUp extends React.Component {
               Password
             </Col>
             <Col sm={9}>
-              <FormControl type="password" placeholder="Password" />
+              <FormControl onChange={this.props.handleChange}
+                           value={this.props.password}
+                           name="password"
+                           type="password"
+                           placeholder="Password" />
             </Col>
           </FormGroup>
 
@@ -44,7 +56,7 @@ class SignUp extends React.Component {
 
           <FormGroup>
             <Col smOffset={3} sm={9}>
-              <Button onClick={this.props.signUp} bsStyle="info" type="button">
+              <Button onClick={this.props.signUp} bsStyle="info" type="submit">
                 Sign up
               </Button>
             </Col>

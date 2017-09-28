@@ -5,13 +5,17 @@ class Login extends React.Component {
   render () {
     return (
       <Panel>
-        <Form horizontal>
+        <Form horizontal onSubmit={this.props.handleLogin}>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={3}>
               User Name
             </Col>
             <Col sm={9}>
-              <FormControl type="text" placeholder="User Name" />
+              <FormControl onChange={this.props.handleChange}
+                           value={this.props.loginUsername}
+                           name="loginUsername"
+                           type="text"
+                           placeholder="User Name" />
             </Col>
           </FormGroup>
 
@@ -20,13 +24,17 @@ class Login extends React.Component {
               Password
             </Col>
             <Col sm={9}>
-              <FormControl type="password" placeholder="Password" />
+              <FormControl onChange={this.props.handleChange}
+                           value={this.props.loginPassword}
+                           name="loginPassword"
+                           type="password"
+                           placeholder="Password" />
             </Col>
           </FormGroup>
 
           <FormGroup>
             <Col smOffset={3} sm={9}>
-              <Button onClick={this.props.logIn} type="button" bsStyle="info">
+              <Button onClick={this.props.logIn} type="submit" bsStyle="info">
                 Log in
               </Button>
             </Col>
