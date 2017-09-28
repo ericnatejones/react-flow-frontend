@@ -18,6 +18,7 @@ export function login(credentials) {
         axios.post(authUrl + "login", credentials)
             .then((response) => {
                 console.log(response.data);
+                localStorage.setItem("token", response.data.token);
             })
             .catch((err) => {
                 console.error(err);

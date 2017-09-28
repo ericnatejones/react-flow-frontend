@@ -2,6 +2,7 @@ import React from 'react'
 
 import Login from './Login'
 import SignUp from './Sign-Up'
+import LogOut from './Log-Out'
 
 import { Col } from 'react-bootstrap'
 
@@ -23,6 +24,15 @@ class LoginSignUpContainer extends React.Component {
         }
 
     }
+
+    componentDidMount(){
+        if (localStorage.token){
+            this.setState({
+                isAuthenticated: true
+            })
+        }
+    }
+
     handleChange(e) {
         e.persist();
         this.setState((prevState) => {
@@ -39,24 +49,34 @@ class LoginSignUpContainer extends React.Component {
             inputs: {
                 username: "",
                 password: "",
-                email: ""
+                loginUsername: "",
+                loginPassword: "",
+                name: ""
             }
         })
     }
 
     handleLogin(e){
-      e.preventDefault();
-      this.props.login({username: this.state.inputs.username,
-                        password: this.state.inputs.password});
-      this.clearInputs();
+        e.preventDefault();
+        this.props.login({username: this.state.inputs.loginUsername,
+                          password: this.state.inputs.loginPassword});
+        this.clearInputs();
+
     }
 
     handleSignup(e){
-      e.preventDefault();
-      this.props.signup({username: this.state.inputs.username,
-                        password: this.state.inputs.password,
-                        name: this.state.inputs.name});
-      this.clearInputs();
+        e.preventDefault();
+        this.props.signup({username: this.state.inputs.username,
+                          password: this.state.inputs.password,
+                          name: this.state.inputs.name});
+        this.clearInputs();
+    }
+
+    handleLogout(e){
+        localStorage.removeItem("token");
+        this.setState({
+            isAuthenticated: false
+        })
     }
 
     render() {
@@ -68,14 +88,17 @@ class LoginSignUpContainer extends React.Component {
         }
         return (
           <Col sm={6} smOffset={3} style={colStyle}>
-              <SignUp
+              { !this.state.isAuthenticated ? <SignUp
                 handleChange={this.handleChange.bind(this)}
                 handleSignup={this.handleSignup.bind(this)}
-                {...this.state.inputs} />
-              <Login
+                {...this.state.inputs} /> : null }
+              { !this.state.isAuthenticated ? <Login
                 handleChange={this.handleChange.bind(this)}
                 handleLogin={this.handleLogin.bind(this)}
-                {...this.state.inputs} />
+                {...this.state.inputs} /> : null }
+              { this.state.isAuthenticated ? <LogOut
+                handleLogout={this.handleLogout.bind(this)}>
+                </LogOut> : null }
           </Col>
         )
     }

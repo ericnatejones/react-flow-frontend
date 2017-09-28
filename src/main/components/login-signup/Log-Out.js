@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 
 class LogOut extends React.Component {
   render () {
-    return (<Button bsStyle="info" onClick={this.props.logOut}>log out</Button>)
+    return (<Button bsStyle="info" onClick={this.props.handleLogout}>log out</Button>)
   }
 }
 
