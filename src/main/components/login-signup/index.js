@@ -25,14 +25,6 @@ class LoginSignUpContainer extends React.Component {
 
     }
 
-    componentDidMount(){
-        if (localStorage.token){
-            this.setState({
-                isAuthenticated: true
-            })
-        }
-    }
-
     handleChange(e) {
         e.persist();
         this.setState((prevState) => {
@@ -83,18 +75,20 @@ class LoginSignUpContainer extends React.Component {
           borderRadius: "2px",
           paddingTop: "20px"
         }
+        console.log(this.props);
         return (
           <Col sm={6} smOffset={3} style={colStyle}>
-              { !this.props.isAuthenticated ? <SignUp
+              { !this.props.authReducer.isAuthenticated ? <SignUp
                 handleChange={this.handleChange.bind(this)}
                 handleSignup={this.handleSignup.bind(this)}
                 {...this.state.inputs} /> : null }
-              { !this.props.isAuthenticated ? <Login
+              { !this.props.authReducer.isAuthenticated ? <Login
                 handleChange={this.handleChange.bind(this)}
                 handleLogin={this.handleLogin.bind(this)}
                 {...this.state.inputs} /> : null }
-              { this.props.isAuthenticated ? <LogOut
-                handleLogout={this.handleLogout.bind(this)}>
+              { this.props.authReducer.isAuthenticated ? <LogOut
+                handleLogout={this.handleLogout.bind(this)}
+                username={this.props.authReducer.user.username}>
                 </LogOut> : null }
           </Col>
         )

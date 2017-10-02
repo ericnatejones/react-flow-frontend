@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import thunk from "redux-thunk";
 
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
-import reducer from "./redux/reducers/auth";
+import authReducer from "./redux/reducers/auth";
+import mainReducer from "./redux/reducers";
 
 import App from './main/App';
+
+const reducer = combineReducers({authReducer, mainReducer});
 
 const store = createStore(reducer, applyMiddleware(thunk));
 

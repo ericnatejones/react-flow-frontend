@@ -18,8 +18,6 @@ export function login(credentials) {
     return (dispatch) => {
         axios.post(authUrl + "login", credentials)
             .then((response) => {
-                console.log(response.data);
-                localStorage.setItem("token", response.data.token);
                 dispatch({
                   type: "LOGIN",
                   data: response.data

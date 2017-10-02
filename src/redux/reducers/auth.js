@@ -1,8 +1,11 @@
+let isAuthenticated = false;
+localStorage.token ? isAuthenticated = true: isAuthenticated = false;
+console.log("once only please")
+
 let defaultState = {
-    isAuthenticated: false,
+    isAuthenticated,
     user: {
-        email:"",
-        username: ""
+        username: localStorage.username
     }
 };
 
@@ -15,6 +18,7 @@ const mainReducer = function (state = defaultState, action) {
             }
         case "LOGIN":
             localStorage.setItem("token", action.data.token);
+            localStorage.setItem("username", action.data.user.username);
             console.log("logged in")
             return {
                 ...state,
@@ -22,6 +26,8 @@ const mainReducer = function (state = defaultState, action) {
             }
         case "LOGOUT":
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
+
             console.log("logged out")
             return {
                 ...state,
