@@ -7,7 +7,7 @@ import LogOut from './Log-Out'
 import { Col } from 'react-bootstrap'
 
 import { connect } from "react-redux";
-import { signup, login } from "../../../redux/actions/auth";
+import { signup, login, logout } from "../../../redux/actions/auth";
 
 
 class LoginSignUpContainer extends React.Component {
@@ -73,10 +73,7 @@ class LoginSignUpContainer extends React.Component {
     }
 
     handleLogout(e){
-        localStorage.removeItem("token");
-        this.setState({
-            isAuthenticated: false
-        })
+        this.props.logout();
     }
 
     render() {
@@ -88,15 +85,15 @@ class LoginSignUpContainer extends React.Component {
         }
         return (
           <Col sm={6} smOffset={3} style={colStyle}>
-              { !this.state.isAuthenticated ? <SignUp
+              { !this.props.isAuthenticated ? <SignUp
                 handleChange={this.handleChange.bind(this)}
                 handleSignup={this.handleSignup.bind(this)}
                 {...this.state.inputs} /> : null }
-              { !this.state.isAuthenticated ? <Login
+              { !this.props.isAuthenticated ? <Login
                 handleChange={this.handleChange.bind(this)}
                 handleLogin={this.handleLogin.bind(this)}
                 {...this.state.inputs} /> : null }
-              { this.state.isAuthenticated ? <LogOut
+              { this.props.isAuthenticated ? <LogOut
                 handleLogout={this.handleLogout.bind(this)}>
                 </LogOut> : null }
           </Col>
@@ -104,4 +101,4 @@ class LoginSignUpContainer extends React.Component {
     }
 }
 
-export default connect(state => state, {signup, login}) (LoginSignUpContainer);
+export default connect(state => state, {signup, login, logout}) (LoginSignUpContainer);
