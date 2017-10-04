@@ -1,11 +1,18 @@
 import React from 'react'
 
 import axios from 'axios'
+import { updateParam } from "../../../redux/actions";
+
+import { connect } from "react-redux";
 
 class Favorite extends React.Component {
     constructor() {
         super();
-        this.state = {}
+
+        this.state = {
+          flow: "",
+          backgroundColor: "#a8cba8"
+        }
     }
 
     componentDidMount(){
@@ -22,13 +29,16 @@ class Favorite extends React.Component {
             })
     }
 
+    handleBlurAndSaveParam(e){
+        this.props.updateParam(e.target.name+"Param/", this.props.item._id, parseInt(e.target.value, 10))
+    }
+
     render(){
-      console.log(this)
         let riverStyle = {
             border: "1px solid rgba(0, 0, 0, 0.1)",
             borderRadius: "2px",
             paddingTop: "20px",
-            backgroundColor: "#a8cba8"
+            backgroundColor: this.state.backgroundColor
         }
 
         return (
@@ -37,16 +47,18 @@ class Favorite extends React.Component {
                    onChange={this.props.handleChange}
                    className="pull-left"
                    type="number"
-                   name="lower"/>
+                   name="lower"
+                   onBlur={ this.handleBlurAndSaveParam.bind(this) }/>
             {this.props.item.stream.knownTitle}
             <input value={this.props.upper}
                    onChange={this.props.handleChange}
                    className="pull-right"
                    type="number"
-                   name="upper"/>
+                   name="upper"
+                   onBlur={ this.handleBlurAndSaveParam.bind(this) }/>
                  <div>{this.state.flow || ""} CFS</div>
           </div>)
     }
 }
 
-export default Favorite;
+export default connect(state => state, {updateParam}) (Favorite);

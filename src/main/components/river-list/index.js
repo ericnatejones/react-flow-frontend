@@ -5,7 +5,7 @@ import RiverList from './RiverList'
 import {Col} from 'react-bootstrap';
 
 import { connect } from "react-redux";
-import {loadRivers, loadFavorites } from "../../../redux/actions";
+import { loadRivers, loadFavorites} from "../../../redux/actions";
 
 class RiverListContainer extends React.Component {
 

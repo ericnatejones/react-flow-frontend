@@ -6,7 +6,6 @@ import Favorite from '../favorite/Favorite'
 class RiverList extends React.Component {
     constructor() {
         super();
-        console.log(this)
         this.state = {
             upper: "",
             lower: ""
@@ -24,6 +23,7 @@ class RiverList extends React.Component {
             }
         })
     }
+
 
 
     render(){

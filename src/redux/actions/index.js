@@ -36,3 +36,13 @@ export function loadFavorites() {
             })
     }
 }
+export function updateParam(which, streamId, param) {
+    return (dispatch) => {
+      console.log(param)
+      axiosAuthInstance.put("api/favorite/param/"+which+streamId, { param })
+      .then((response) => {
+          console.log(response.data)
+
+      })
+    }
+}
