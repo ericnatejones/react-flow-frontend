@@ -1,9 +1,13 @@
 import React from 'react'
 
 function River (props) {
+    let riverStyle = {
+        border: "1px solid rgba(0, 0, 0, 0.1)",
+        borderRadius: "2px",
+        paddingTop: "20px",
+    }
 
-    console.log(props)
-    return <div>{props.item.knownTitle}</div>
+    return <div style={riverStyle} className="river-item">{props.item.knownTitle}</div>
 
 }
 

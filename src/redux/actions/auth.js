@@ -1,11 +1,24 @@
 import axios from "axios"
-import { authUrl } from "../../config"
+import { baseURL } from "../../config"
+
+//AUTHORIZATION
+const axiosAuthInstance = axios.create({
+    baseURL
+});
+
+axiosAuthInstance.interceptors.request.use(function (config) {
+    let token = localStorage.getItem("token");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 export function signup(credentials) {
     return (dispatch) => {
-        axios.post(authUrl + "signup", credentials)
+        axiosAuthInstance.post("auth/signup", credentials)
             .then((response) => {
-                console.log(response.data);
+                console.log(response.data, "succesful signup");
 
             })
             .catch((err) => {
@@ -16,7 +29,7 @@ export function signup(credentials) {
 
 export function login(credentials) {
     return (dispatch) => {
-        axios.post(authUrl + "login", credentials)
+        axiosAuthInstance.post("auth/login", credentials)
             .then((response) => {
                 dispatch({
                   type: "LOGIN",
@@ -34,3 +47,5 @@ export function logout() {
       type: "LOGOUT"
     };
 }
+
+export {axiosAuthInstance};

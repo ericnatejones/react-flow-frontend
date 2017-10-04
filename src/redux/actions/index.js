@@ -1,20 +1,38 @@
-import axios from "axios"
-
-import {riversUrl} from "../../config"
+import { axiosAuthInstance } from './auth'
 
 export function loadRivers() {
-  console.log("rivers loaded")
     return (dispatch) => {
-        axios.get(riversUrl)
+        axiosAuthInstance.get("stream")
             .then((response) => {
-              console.log(response.data)
                 dispatch({
-                    type: "SET_DATA",
+                    type: "SET_RIVERS",
                     rivers: response.data
                 });
             })
             .catch((err) => {
                 console.error(err);
+            })
+    }
+}
+
+export function loadFavorites() {
+    return (dispatch) => {
+        axiosAuthInstance.get("api/favorite")
+            .then((response) => {
+                dispatch({
+                    type: "SET_FAVORITES",
+                    favorites: response.data
+                });
+            })
+            .catch((err) => {
+                console.log(err, ": err")
+                if(err.response.statusText === "Unauthorized"){
+                  dispatch({
+                      type: "SET_FAVORITES",
+                      favorites: []
+                  });
+                };
+
             })
     }
 }

@@ -10,7 +10,6 @@ let defaultState = {
 };
 
 const mainReducer = function (state = defaultState, action) {
-    console.log(action.data)
     switch (action.type) {
         case "SET_DATA":
             return {
@@ -19,18 +18,22 @@ const mainReducer = function (state = defaultState, action) {
         case "LOGIN":
             localStorage.setItem("token", action.data.token);
             localStorage.setItem("username", action.data.user.username);
-            console.log("logged in")
             return {
                 ...state,
+                user: {
+                    username: action.data.user.username
+                },
                 isAuthenticated: true
             }
         case "LOGOUT":
             localStorage.removeItem("token");
             localStorage.removeItem("username");
 
-            console.log("logged out")
             return {
                 ...state,
+                user: {
+                    username: ""
+                },
                 isAuthenticated: false
             }
         default:
