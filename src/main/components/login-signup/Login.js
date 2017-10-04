@@ -35,7 +35,7 @@ class Login extends React.Component {
           <FormGroup>
             <Col smOffset={3} sm={9}>
               <Button onClick={this.props.logIn} type="submit" bsStyle="info">
-                Log in
+                Log in 
               </Button>
             </Col>
           </FormGroup>

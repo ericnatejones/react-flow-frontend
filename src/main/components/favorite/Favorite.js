@@ -8,11 +8,25 @@ import { connect } from "react-redux";
 class Favorite extends React.Component {
     constructor() {
         super();
-
         this.state = {
-          flow: "",
-          backgroundColor: "#a8cba8"
+          flow: ""
         }
+    }
+
+    updateBackground() {
+      if (this.state.flow < this.props.lower){
+        return "lightblue"
+      }
+      if (this.state.flow > this.props.upper){
+        return "#ffd9d9"
+
+        console.log(this.state.backgroundColor)
+      }
+      if (this.state.flow > this.props.lower && this.state.flow < this.props.upper){
+        return "#a8cba8"
+
+      }
+      return "white"
     }
 
     componentDidMount(){
@@ -20,9 +34,11 @@ class Favorite extends React.Component {
         let param = '&parameterCd=00060';
         axios.get(url+this.props.item.stream.apiId+param)
             .then((response) => {
+              let flow = response.data.value.timeSeries[0].values[0].value[0].value
               this.setState({
-                flow: response.data.value.timeSeries[0].values[0].value[0].value
+                flow
               })
+
             })
             .catch((err) => {
                 console.log(err, ": err");
@@ -31,14 +47,16 @@ class Favorite extends React.Component {
 
     handleBlurAndSaveParam(e){
         this.props.updateParam(e.target.name+"Param/", this.props.item._id, parseInt(e.target.value, 10))
+
     }
 
     render(){
+        let backgroundColor = this.updateBackground()
         let riverStyle = {
             border: "1px solid rgba(0, 0, 0, 0.1)",
             borderRadius: "2px",
             paddingTop: "20px",
-            backgroundColor: this.state.backgroundColor
+            backgroundColor
         }
 
         return (
