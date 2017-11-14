@@ -5,13 +5,21 @@ import RiverList from './RiverList'
 import {Col} from 'react-bootstrap';
 
 import { connect } from "react-redux";
-import { loadRivers, loadFavorites} from "../../../redux/actions";
+import { loadRivers, loadFavorites, actionFavorite, actionUnFavorite } from "../../../redux/actions";
 
 class RiverListContainer extends React.Component {
 
      componentDidMount() {
          this.props.loadFavorites();
          this.props.loadRivers();
+    }
+
+    handleActionFavorite(e){
+      this.props.actionFavorite(e.target.id)
+    }
+
+    handleActionUnFavorite(id){
+      this.props.actionUnFavorite(id)
     }
 
     render() {
@@ -23,12 +31,12 @@ class RiverListContainer extends React.Component {
       }
 
         return (
-          <Col sm={6} smOffset={3} style={colStyle}>
-            <RiverList rivers={[]} favorites={this.props.mainReducer.favorites}></RiverList>
-            <RiverList rivers={this.props.mainReducer.rivers} favorites={[]}></RiverList>
+          <Col sm={8} smOffset={2} style={colStyle}>
+            <RiverList rivers={[]} favorites={this.props.mainReducer.favorites} handleActionUnFavorite={this.handleActionUnFavorite.bind(this)}></RiverList>
+            <RiverList rivers={this.props.mainReducer.rivers} favorites={[]} handleActionFavorite={this.handleActionFavorite.bind(this)}></RiverList>
           </Col>
         )
     }
 }
 
-export default connect(state => state, { loadRivers, loadFavorites }) (RiverListContainer);
+export default connect(state => state, { loadRivers, loadFavorites, actionFavorite, actionUnFavorite }) (RiverListContainer);

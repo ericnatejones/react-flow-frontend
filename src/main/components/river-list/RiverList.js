@@ -24,21 +24,23 @@ class RiverList extends React.Component {
         })
     }
 
-
-
     render(){
-      let riverList = this.props.rivers.map((river, index) =>(
-            <River key={index} id={index} item={river}/>
-        )
+      let riverList = this.props.rivers.map((river, index) =>{
+          console.log("river", river)
+
+            return <River key={index} id={index} item={river}
+              handleActionFavorite={this.props.handleActionFavorite}/>
+          }
       );
-      console.log(this, " :getting at params and flow")
-      let favoritesList = this.props.favorites.map((river, index) =>(
-              <Favorite {...this.state}
+      let favoritesList = this.props.favorites.map((river, index) =>{
+              console.log("fav", river)
+              return<Favorite {...this.state}
                 handleChange={this.handleChange.bind(this)}
                 upper={this.state.upper || river.upperParam}
                 lower={this.state.lower || river.lowerParam}
-                key={index} id={index} item={river}/>
-          )
+                key={index} id={index} item={river.stream}
+                handleActionUnFavorite={this.props.handleActionUnFavorite}/>
+            }
       );
       return (
         <div>

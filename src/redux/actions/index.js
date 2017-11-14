@@ -21,7 +21,7 @@ export function loadFavorites() {
             .then((response) => {
                 dispatch({
                     type: "SET_FAVORITES",
-                    favorites: response.data
+                    favorites: response.data.favoriteStreams
                 });
             })
             .catch((err) => {
@@ -45,4 +45,34 @@ export function updateParam(which, streamId, param) {
 
       })
     }
+}
+
+export function actionFavorite(_id){
+  return (dispatch) => {
+    console.log(_id)
+    axiosAuthInstance.post("api/favorite/", {_id})
+    .then((response) => {
+        console.log(response.data)
+        dispatch({
+            type: "ADD_FAVORITE",
+            favorites: response.data.favoriteStreams
+        });
+
+    })
+  }
+}
+
+export function actionUnFavorite(_id){
+  return (dispatch) => {
+    console.log(_id)
+    axiosAuthInstance({method:"delete", url:"api/favorite/", data:{_id}})
+    .then((response) => {
+        console.log(response.data)
+        dispatch({
+            type: "REMOVE_FAVORITE",
+            favorites: response.data.favoriteStreams
+        });
+
+    })
+  }
 }

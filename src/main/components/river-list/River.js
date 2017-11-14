@@ -7,7 +7,7 @@ function River (props) {
         paddingTop: "20px",
     }
 
-    return <div style={riverStyle} className="river-item">{props.item.knownTitle}</div>
+    return <div onClick={props.handleActionFavorite} id={props.item._id} style={riverStyle} className="river-item">{props.item.knownTitle}</div>
 
 }
 
