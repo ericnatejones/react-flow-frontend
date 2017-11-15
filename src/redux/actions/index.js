@@ -37,14 +37,20 @@ export function loadFavorites() {
     }
 }
 export function updateParam(which, streamId, param) {
+  if (!isNaN(param)){
     return (dispatch) => {
       console.log(param)
+
       axiosAuthInstance.put("api/favorite/param/"+which+streamId, { param })
       .then((response) => {
           console.log(response.data)
 
       })
     }
+  }
+  return {
+    type: "DO_NOTHING"
+  };
 }
 
 export function actionFavorite(_id){

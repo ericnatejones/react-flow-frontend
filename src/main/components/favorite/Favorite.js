@@ -13,29 +13,33 @@ class Favorite extends React.Component {
         this.state = {
           flow: "",
           upper: props.upper,
-          lower: props.lower
+          lower: props.lower,
+
         }
         this.handleChange = this.handleChange.bind(this)
     }
+
     handleChange(e) {
         e.persist();
         console.log("change")
         this.setState((prevState) => {
             return {
                 ...prevState,
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
+                backgroundColor: this.updateBackground(prevState.flow)
             }
         })
     }
 
-    updateBackground() {
-      if (this.state.flow < this.props.lower){
+    updateBackground(flow) {
+      console.log("flow:", flow)
+      if (flow < this.state.lower){
         return "lightblue"
       }
-      if (this.state.flow > this.props.upper){
+      if (flow > this.state.upper){
         return "#ffd9d9"
       }
-      if (this.state.flow > this.props.lower && this.state.flow < this.props.upper){
+      if (flow > this.state.lower && flow < this.state.upper){
         return "#a8cba8"
 
       }
@@ -49,7 +53,8 @@ class Favorite extends React.Component {
             .then((response) => {
               let flow = response.data.value.timeSeries[0].values[0].value[0].value
               this.setState({
-                flow
+                flow,
+                backgroundColor: this.updateBackground(flow)
               })
 
             })
@@ -64,7 +69,7 @@ class Favorite extends React.Component {
     }
 
     render(){
-        let backgroundColor = this.updateBackground()
+        let backgroundColor = this.updateBackground(this.state.flow)
         let riverStyle = {
             border: "1px solid rgba(0, 0, 0, 0.1)",
             borderRadius: "2px",
