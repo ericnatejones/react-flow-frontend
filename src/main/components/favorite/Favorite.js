@@ -8,11 +8,24 @@ import {Button, Row, Col} from "react-bootstrap"
 import { connect } from "react-redux";
 
 class Favorite extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-          flow: ""
+          flow: "",
+          upper: props.upper,
+          lower: props.lower
         }
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(e) {
+        e.persist();
+        console.log("change")
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                [e.target.name]: e.target.value
+            }
+        })
     }
 
     updateBackground() {
@@ -46,7 +59,7 @@ class Favorite extends React.Component {
     }
 
     handleBlurAndSaveParam(e){
-        this.props.updateParam(e.target.name+"Param/", this.props.item._id, parseInt(e.target.value, 10))
+        this.props.updateParam(e.target.name+"Param/", this.props.id, parseInt(e.target.value, 10))
 
     }
 
@@ -62,8 +75,8 @@ class Favorite extends React.Component {
         return (
           <Row id={this.props.item._id} style={riverStyle} className="river-item">
             <Col sm={1}>
-              <input value={this.props.lower}
-                     onChange={this.props.handleChange}
+              <input value={this.state.lower}
+                     onChange={this.handleChange}
                      className="pull-left"
                      type="number"
                      name="lower"
@@ -76,8 +89,8 @@ class Favorite extends React.Component {
             </Col>
             <Col sm={1}>
 
-              <input value={this.props.upper}
-                     onChange={this.props.handleChange}
+              <input value={this.state.upper}
+                     onChange={this.handleChange}
                      className="pull-right"
                      type="number"
                      name="upper"
