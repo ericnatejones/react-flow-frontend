@@ -82,3 +82,25 @@ export function actionUnFavorite(_id){
     })
   }
 }
+
+export function submitRiver({url, knownTitle}){
+  return (dispatch, getState) => {
+    console.log(url)
+    let site = url.match(/\d/g).join("");
+    console.log(site)
+
+    axiosAuthInstance.post("stream/", {site, knownTitle})
+    .then(response=>{
+      const {rivers} = getState().mainReducer
+      console.log("get state", getState().mainReducer)
+      console.log("new stream: ", response.data)
+      console.log("all streams: ", rivers)
+
+      dispatch({
+          type: "ADD_RIVER",
+          river: response.data,
+          rivers
+      });
+    })
+  }
+}

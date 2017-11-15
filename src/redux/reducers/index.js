@@ -28,6 +28,11 @@ const mainReducer = function (state = defaultState, action) {
           ...state,
           favorites: action.favorites
         }
+     case "ADD_RIVER":
+        return {
+          ...state,
+          rivers: [...action.rivers, action.river]
+        }
       default:
           return {
               ...state

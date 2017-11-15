@@ -33,16 +33,10 @@ class Favorite extends React.Component {
 
     updateBackground(flow) {
       console.log("flow:", flow)
-      if (flow < this.state.lower){
-        return "lightblue"
-      }
-      if (flow > this.state.upper){
-        return "#ffd9d9"
-      }
-      if (flow > this.state.lower && flow < this.state.upper){
-        return "#a8cba8"
-
-      }
+      if (this.state.upper <= this.state.lower) return "orange"
+      if (flow < this.state.lower) return "lightblue"
+      if (flow > this.state.upper) return "#ffd9d9"
+      if (flow > this.state.lower && flow < this.state.upper) return "#a8cba8"
       return "white"
     }
 
@@ -79,25 +73,27 @@ class Favorite extends React.Component {
 
         return (
           <Row id={this.props.item._id} style={riverStyle} className="river-item">
-            <Col sm={1}>
+            <Col sm={3}>
               <input value={this.state.lower}
                      onChange={this.handleChange}
                      className="pull-left"
                      type="number"
+                     step={Math.floor(this.state.flow/10)}
                      name="lower"
                      onBlur={ this.handleBlurAndSaveParam.bind(this) }/>
             </Col>
-            <Col sm={10}>
+            <Col sm={6}>
               <p>{this.props.item.knownTitle}</p>
               <div>{this.state.flow || ""} CFS</div>
               <Button onClick={()=>this.props.handleActionUnFavorite(this.props.item._id)}>Unfavorite</Button>
             </Col>
-            <Col sm={1}>
+            <Col sm={3}>
 
               <input value={this.state.upper}
                      onChange={this.handleChange}
                      className="pull-right"
                      type="number"
+                     step={this.state.flow/10}
                      name="upper"
                      onBlur={ this.handleBlurAndSaveParam.bind(this) }/>
               </Col>
