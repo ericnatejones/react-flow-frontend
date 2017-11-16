@@ -4,7 +4,6 @@ import River from './River'
 import Favorite from '../favorite/Favorite'
 
 function RiverList(props) {
-
       const riverList = props.rivers.map((river, index) =>{
           console.log("river", river)
 
@@ -15,7 +14,7 @@ function RiverList(props) {
 
       const favoritesList = props.favorites.map((river, index) =>{
               console.log("fav", river)
-              return<Favorite
+              return <Favorite
                 upper={river.upperParam}
                 lower={river.lowerParam}
                 key={river._id} id={river._id} item={river.stream}

@@ -26,7 +26,7 @@ class AddRiverFrom extends Component{
 
   render(){
     const styles = {
-      marginTop: "20px"
+      marginTop: "40px"
     }
     return (
       <Row style={styles}>

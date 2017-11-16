@@ -4,7 +4,7 @@ import Login from './Login'
 import SignUp from './Sign-Up'
 import LogOut from './Log-Out'
 
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 import { connect } from "react-redux";
 import { signup, login, logout } from "../../../redux/actions/auth";
@@ -77,20 +77,22 @@ class LoginSignUpContainer extends React.Component {
         }
         console.log(this.props);
         return (
-          <Col sm={6} smOffset={3} style={colStyle}>
-              { !this.props.authReducer.isAuthenticated ? <SignUp
-                handleChange={this.handleChange.bind(this)}
-                handleSignup={this.handleSignup.bind(this)}
-                {...this.state.inputs} /> : null }
-              { !this.props.authReducer.isAuthenticated ? <Login
-                handleChange={this.handleChange.bind(this)}
-                handleLogin={this.handleLogin.bind(this)}
-                {...this.state.inputs} /> : null }
-              { this.props.authReducer.isAuthenticated ? <LogOut
-                handleLogout={this.handleLogout.bind(this)}
-                username={this.props.authReducer.user.username}>
-                </LogOut> : null }
-          </Col>
+          <Row>
+            <Col sm={6} smOffset={3} style={colStyle}>
+                { !this.props.authReducer.isAuthenticated ? <SignUp
+                  handleChange={this.handleChange.bind(this)}
+                  handleSignup={this.handleSignup.bind(this)}
+                  {...this.state.inputs} /> : null }
+                { !this.props.authReducer.isAuthenticated ? <Login
+                  handleChange={this.handleChange.bind(this)}
+                  handleLogin={this.handleLogin.bind(this)}
+                  {...this.state.inputs} /> : null }
+                { this.props.authReducer.isAuthenticated ? <LogOut
+                  handleLogout={this.handleLogout.bind(this)}
+                  username={this.props.authReducer.user.username}>
+                  </LogOut> : null }
+            </Col>
+          </Row>
         )
     }
 }

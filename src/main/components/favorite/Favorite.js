@@ -32,11 +32,14 @@ class Favorite extends React.Component {
     }
 
     updateBackground(flow) {
-      console.log("flow:", flow)
-      if (this.state.upper <= this.state.lower) return "orange"
-      if (flow < this.state.lower) return "lightblue"
-      if (flow > this.state.upper) return "#ffd9d9"
-      if (flow > this.state.lower && flow < this.state.upper) return "#a8cba8"
+      flow = Number(flow)
+      let upper = Number(this.state.upper)
+      let lower = Number(this.state.lower)
+
+      if (upper <= lower) return "orange"
+      if (flow < lower) return "#ffd9d9"
+      if (flow > upper) return "lightblue"
+      if (flow >= lower && flow <= upper) return "#a8cba8"
       return "white"
     }
 
@@ -96,7 +99,7 @@ class Favorite extends React.Component {
                      step={this.state.flow/10}
                      name="upper"
                      onBlur={ this.handleBlurAndSaveParam.bind(this) }/>
-              </Col>
+            </Col>
 
           </Row>)
     }
