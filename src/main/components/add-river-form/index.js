@@ -60,7 +60,6 @@ class AddRiverFrom extends Component{
       </Row>
     )
   }
-
 }
 
 export default connect(state => state, {submitRiver}) (AddRiverFrom);
