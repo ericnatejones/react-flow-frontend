@@ -3,7 +3,7 @@ import { Col, Row, Panel, Button, Form, FormControl, FormGroup, ControlLabel } f
 import { submitRiver } from "../../../redux/actions";
 import { connect } from "react-redux";
 
-class AddRiverFrom extends Component{
+class AddRiverForm extends Component{
   constructor(){
     super()
     this.state = {
@@ -43,11 +43,11 @@ class AddRiverFrom extends Component{
                                name="river"
                                type="text"
                                placeholder="River to Add" />
-                  <FormControl onChange={this.handleChange}
+                             {this.props.authReducer.isAdmin ? <FormControl onChange={this.handleChange}
                                value={this.state.knownTitle}
                                name="knownTitle"
                                type="text"
-                               placeholder="Known Title (Optional)" />
+                               placeholder="Known Title (Optional)" /> : null }
                 </Col>
                 <Col sm={2}>
                   <Button type="submit">Submit</Button>
@@ -62,4 +62,4 @@ class AddRiverFrom extends Component{
   }
 }
 
-export default connect(state => state, {submitRiver}) (AddRiverFrom);
+export default connect(state => state, {submitRiver}) (AddRiverForm);

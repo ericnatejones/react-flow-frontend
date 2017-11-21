@@ -8,6 +8,7 @@ import { Col, Row } from 'react-bootstrap'
 
 import { connect } from "react-redux";
 import { signup, login, logout } from "../../../redux/actions/auth";
+import { clearFavorites, loadFavorites } from "../../../redux/actions";
 
 
 class LoginSignUpContainer extends React.Component {
@@ -53,7 +54,8 @@ class LoginSignUpContainer extends React.Component {
         this.props.login({username: this.state.inputs.loginUsername,
                           password: this.state.inputs.loginPassword});
         this.clearInputs();
-
+        this.props.loadFavorites();
+        
     }
 
     handleSignup(e){
@@ -66,6 +68,7 @@ class LoginSignUpContainer extends React.Component {
 
     handleLogout(e){
         this.props.logout();
+        this.props.clearFavorites()
     }
 
     render() {
@@ -75,7 +78,6 @@ class LoginSignUpContainer extends React.Component {
           borderRadius: "2px",
           paddingTop: "20px"
         }
-        console.log(this.props);
         return (
           <Row>
             <Col sm={6} smOffset={3} style={colStyle}>
@@ -97,4 +99,4 @@ class LoginSignUpContainer extends React.Component {
     }
 }
 
-export default connect(state => state, {signup, login, logout}) (LoginSignUpContainer);
+export default connect(state => state, {signup, login, logout, clearFavorites, loadFavorites}) (LoginSignUpContainer);

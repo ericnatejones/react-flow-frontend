@@ -19,6 +19,7 @@ export function loadFavorites() {
     return (dispatch) => {
         axiosAuthInstance.get("api/favorite")
             .then((response) => {
+                console.log(response.data.favoriteStreams)
                 dispatch({
                     type: "SET_FAVORITES",
                     favorites: response.data.favoriteStreams
@@ -36,6 +37,13 @@ export function loadFavorites() {
             })
     }
 }
+
+export function clearFavorites(){
+  return {
+    type: "CLEAR_FAVORITES"
+  }
+}
+
 export function updateParam(which, streamId, param) {
   if (!isNaN(param)){
     return (dispatch) => {
@@ -83,6 +91,8 @@ export function actionUnFavorite(_id){
   }
 }
 
+
+
 export function submitRiver({url, knownTitle}){
   return (dispatch, getState) => {
     console.log(url)
@@ -92,9 +102,6 @@ export function submitRiver({url, knownTitle}){
     axiosAuthInstance.post("stream/", {site, knownTitle})
     .then(response=>{
       const {rivers} = getState().mainReducer
-      console.log("get state", getState().mainReducer)
-      console.log("new stream: ", response.data)
-      console.log("all streams: ", rivers)
 
       dispatch({
           type: "ADD_RIVER",

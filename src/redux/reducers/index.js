@@ -33,6 +33,11 @@ const mainReducer = function (state = defaultState, action) {
           ...state,
           rivers: [...action.rivers, action.river]
         }
+      case "CLEAR_FAVORITES":
+         return {
+           ...state,
+           favorites: []
+         }
       default:
           return {
               ...state

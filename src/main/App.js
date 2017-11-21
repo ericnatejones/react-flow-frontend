@@ -3,7 +3,7 @@ import './App.css';
 
 import LoginSignUpContainer from './components/login-signup';
 import RiverListContainer from './components/river-list';
-import AddRiverFrom from './components/add-river-form';
+import AddRiverForm from './components/add-river-form';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <LoginSignUpContainer/>
         <RiverListContainer/>
-        <AddRiverFrom/>
+        <AddRiverForm/>
       </div>
     );
   }

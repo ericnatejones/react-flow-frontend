@@ -1,9 +1,10 @@
-let isAuthenticated = false;
+let isAuthenticated, isAdmin = false;
 localStorage.token ? isAuthenticated = true: isAuthenticated = false;
-console.log("once only please")
+localStorage.isAdmin ? isAdmin = true: isAdmin = false;
 
 let defaultState = {
     isAuthenticated,
+    isAdmin,
     user: {
         username: localStorage.username
     }
@@ -23,7 +24,8 @@ const mainReducer = function (state = defaultState, action) {
                 user: {
                     username: action.data.user.username
                 },
-                isAuthenticated: true
+                isAuthenticated: true,
+                isAdmin: action.data.user.admin
             }
         case "LOGOUT":
             localStorage.removeItem("token");
@@ -34,7 +36,8 @@ const mainReducer = function (state = defaultState, action) {
                 user: {
                     username: ""
                 },
-                isAuthenticated: false
+                isAuthenticated: false,
+                isAdmin: false
             }
         default:
             return {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import River from './River'
 import Favorite from './../favorite/Favorite'
@@ -7,18 +7,21 @@ import Favorite from './../favorite/Favorite'
 import {Col, Row} from 'react-bootstrap';
 
 import { connect } from "react-redux";
-import { loadRivers, loadFavorites, actionFavorite, actionUnFavorite } from "../../../redux/actions";
+import { loadRivers, actionFavorite, actionUnFavorite } from "../../../redux/actions";
 
-class RiverListContainer extends React.Component {
+class RiverListContainer extends Component {
     constructor(){
       super()
+      this.state = {
+        favorites:[]
+      }
       this.handleActionFavorite = this.handleActionFavorite.bind(this)
       this.handleActionUnFavorite = this.handleActionUnFavorite.bind(this)
     }
 
      componentDidMount() {
-         this.props.loadFavorites();
          this.props.loadRivers();
+         console.log(this.props)
     }
 
     handleActionFavorite(e){
@@ -30,6 +33,8 @@ class RiverListContainer extends React.Component {
     }
 
     render() {
+      console.log(this.props)
+
       const colStyle = {
         marginTop: "50px",
         border: "1px solid rgba(0, 0, 0, 0.1)",
@@ -42,7 +47,6 @@ class RiverListContainer extends React.Component {
         return match
       })
       riverList = riverList.map((river, index) =>{
-          console.log("river", river)
 
             return <River key={index} id={index} item={river}
               handleActionFavorite={this.handleActionFavorite}/>
@@ -50,7 +54,6 @@ class RiverListContainer extends React.Component {
       );
 
       const favoritesList = this.props.mainReducer.favorites.map((river, index) =>{
-              console.log("fav", river)
               return <Favorite
                 upper={river.upperParam}
                 lower={river.lowerParam}
@@ -71,4 +74,4 @@ class RiverListContainer extends React.Component {
     }
 }
 
-export default connect(state => state, { loadRivers, loadFavorites, actionFavorite, actionUnFavorite }) (RiverListContainer);
+export default connect(state => state, { loadRivers, actionFavorite, actionUnFavorite }) (RiverListContainer);
